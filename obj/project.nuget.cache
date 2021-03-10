@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "OE22UvxN6hzy16/9LhU9OmY77axEKWX7PkRA4feI53HxgaJEp0epepiTELDTKNG1n08Q5yEgy3c15HiMRSKWDg==",
+  "success": true,
+  "projectFilePath": "/Users/marco.nicolodi/dev/algorithms/algorithms.csproj",
+  "expectedPackageFiles": [
+    "/Users/marco.nicolodi/.nuget/packages/microsoft.aspnetcore.app.ref/3.1.10/microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512"
+  ],
+  "logs": []
+}

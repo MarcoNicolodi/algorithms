@@ -1,0 +1,12 @@
+/Users/marco.nicolodi/dev/algorithms/bin/Debug/netcoreapp3.1/algorithms.deps.json
+/Users/marco.nicolodi/dev/algorithms/bin/Debug/netcoreapp3.1/algorithms.runtimeconfig.json
+/Users/marco.nicolodi/dev/algorithms/bin/Debug/netcoreapp3.1/algorithms.runtimeconfig.dev.json
+/Users/marco.nicolodi/dev/algorithms/bin/Debug/netcoreapp3.1/algorithms.dll
+/Users/marco.nicolodi/dev/algorithms/bin/Debug/netcoreapp3.1/algorithms.pdb
+/Users/marco.nicolodi/dev/algorithms/obj/Debug/netcoreapp3.1/algorithms.csprojAssemblyReference.cache
+/Users/marco.nicolodi/dev/algorithms/obj/Debug/netcoreapp3.1/algorithms.AssemblyInfoInputs.cache
+/Users/marco.nicolodi/dev/algorithms/obj/Debug/netcoreapp3.1/algorithms.AssemblyInfo.cs
+/Users/marco.nicolodi/dev/algorithms/obj/Debug/netcoreapp3.1/algorithms.csproj.CoreCompileInputs.cache
+/Users/marco.nicolodi/dev/algorithms/obj/Debug/netcoreapp3.1/algorithms.dll
+/Users/marco.nicolodi/dev/algorithms/obj/Debug/netcoreapp3.1/algorithms.pdb
+/Users/marco.nicolodi/dev/algorithms/obj/Debug/netcoreapp3.1/algorithms.genruntimeconfig.cache
