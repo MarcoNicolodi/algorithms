@@ -206,20 +206,21 @@ namespace algorithms
         }
 
         private static int[] InsertionSort3(int[] items) {
-            for (int i = 1; i < items.Length - 1; i++)
+            for (int i = 1; i <= items.Length - 1; i++)
             {
-                var key = items[i];
-                var j = i - 1;
-
-                while(j > 0 && key < items[j]) {
-                    items[j + 1] = items[j];
-                    --j;
-                }
-
-                items[j] = key;
+                InsertionSort3Insert(items, i - 1, items[i]);
             }
 
             return items;
+        }
+
+        private static void InsertionSort3Insert(int[] items, int rightIndex, int value) 
+        {
+            int j;
+            for(j = rightIndex; j >= 0 && items[j] > value; j--) {
+                items[j + 1] = items[j];
+            }
+            items[j + 1] = value;
         }
     }
 }
