@@ -9,7 +9,7 @@ namespace algorithms
         {
             var items = new int[] { 5, 2, 4, 7, 1, 3, 2 };
             //InsertionSort2(items).ToList().ForEach(i => Console.WriteLine(i));
-            InsertionSort3(items).ToList().ForEach(i => Console.WriteLine(i));
+            //InsertionSort3(items).ToList().ForEach(i => Console.WriteLine(i));
             //SelectionSort(items).ToList().ForEach(i => Console.WriteLine(i));
             //Console.WriteLine(LinearSearch(items, 1));
             //Console.WriteLine(LinearSearch(items, 8));
@@ -17,6 +17,7 @@ namespace algorithms
             //var items = Enumerable.Range(50, 100).ToArray();
             //Console.WriteLine(BinarySearch(items, 73));
             //Console.WriteLine(BinarySearch3(items, 73));
+            Console.WriteLine(RecursiveFactorial(15));
             
         }
 
@@ -110,40 +111,7 @@ namespace algorithms
 
             return -1;
         }
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+                
         private static int BinarySearch3(int[] items, int target) 
         {
             int min = 0;
@@ -221,6 +189,25 @@ namespace algorithms
                 items[j + 1] = items[j];
             }
             items[j + 1] = value;
+        }
+
+        private static int IteractiveFactorial (int n) 
+        {
+            int result = 1;
+            for (int i = 1; i <= n; i++)
+            {
+                result = result * i;
+            }
+
+            return result;
+        }
+
+        private static long RecursiveFactorial(long n) 
+        {
+            if (n <= 1) 
+                return 1;
+
+            return n * RecursiveFactorial(n - 1);
         }
     }
 }
