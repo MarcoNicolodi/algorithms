@@ -18,7 +18,7 @@ namespace algorithms
             //Console.WriteLine(BinarySearch(items, 73));
             //Console.WriteLine(BinarySearch3(items, 73));
             //Console.WriteLine(RecursiveFactorial(15));
-            Console.WriteLine(IsPalindrome("repaper"));
+            Console.WriteLine(IsPalindrome3("repaper"));
             
         }
 
@@ -226,5 +226,33 @@ namespace algorithms
 
             return currentLetters[0] == currentLetters[1] && IsPalindrome(remainingletters);
         }
+
+        private static bool IsPalindrome2(String word) => IsPalindrome2Recursive(word.ToCharArray());
+
+        private static bool IsPalindrome2Recursive(char[] letters) {
+            var length = letters.Length;
+
+            if(length == 1) return true;
+            
+            if(length == 2) {
+                return letters[0] == letters[1];
+            }
+
+            char[] currentLetters = {letters[0], letters[length - 1]};
+            var remainingletters = letters.Skip(1).SkipLast(1).ToArray();
+
+            return currentLetters[0] == currentLetters[1] && IsPalindrome2Recursive(remainingletters);
+        }
+
+        private static bool IsPalindrome3(String word) {
+            if(word.Length <= 1) return true;
+
+            var firstLetter = word[0];
+            var lastLetter = word[word.Length -1];
+
+            return firstLetter == lastLetter && IsPalindrome3(word.Substring(1, word.Length - 2));
+        }
+
+        
     }
 }
