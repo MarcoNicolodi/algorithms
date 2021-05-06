@@ -18,7 +18,8 @@ namespace algorithms
             //Console.WriteLine(BinarySearch(items, 73));
             //Console.WriteLine(BinarySearch3(items, 73));
             //Console.WriteLine(RecursiveFactorial(15));
-            Console.WriteLine(IsPalindrome3("repaper"));
+            //Console.WriteLine(IsPalindrome3("repaper"));
+            Console.WriteLine(PowerOf(2, -3));
             
         }
 
@@ -253,6 +254,29 @@ namespace algorithms
             return firstLetter == lastLetter && IsPalindrome3(word.Substring(1, word.Length - 2));
         }
 
+        private static bool IsPalindrome4(String word) =>
+            word.Length <= 1 || word[0] ==  word[word.Length -1] && IsPalindrome3(word.Substring(1, word.Length - 2));
+
+
+        //https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
+        
+        private static float PowerOf(float number, int expoent) 
+        {
+            if(expoent < 0) 
+            {
+                return 1 / PowerOf(number, expoent * -1);
+            }
+
+            if(expoent == 0) return 1;
+
+            if(expoent == 1) return number;
+
+            if(expoent % 2 == 0) {
+                return PowerOf(number, expoent / 2) * PowerOf(number, expoent / 2);
+            } 
+
+            return number * PowerOf(number, expoent -1);
+        }
         
     }
 }
