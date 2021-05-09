@@ -21,7 +21,8 @@ namespace algorithms
             //Console.WriteLine(RecursiveFactorial(15));
             //Console.WriteLine(IsPalindrome3("repaper"));
             //Console.WriteLine(PowerOf(2, -3));
-            Console.WriteLine(MemoizedFactorial(10));
+            //Console.WriteLine(MemoizedFactorial(10));
+            Console.WriteLine(MemoizedFib(50));
             
         }
 
@@ -301,6 +302,27 @@ namespace algorithms
 
             return number * PowerOf(number, expoent -1);
         }
-        
+
+        private static int Fib(int nth) {
+            if(nth == 0) return 0;
+            if(nth == 1) return 1;
+
+            return Fib(nth - 2) + Fib(nth - 1);
+        }
+
+        private static long MemoizedFib(long nth) => FibWithMemo(nth, new Dictionary<long, long>());
+
+        private static long FibWithMemo(long nth, Dictionary<long, long> memo) {
+            if(memo.TryGetValue(nth, out long value)) {
+                return value;
+            } else {
+                if(nth == 0) return 0;
+                if(nth == 1) return 1;
+                
+                var result = FibWithMemo(nth - 2, memo) + FibWithMemo(nth - 1, memo);
+                memo.TryAdd(nth, result);
+                return result;
+            }
+        }
     }
 }
