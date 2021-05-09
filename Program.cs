@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace algorithms
@@ -19,7 +20,8 @@ namespace algorithms
             //Console.WriteLine(BinarySearch3(items, 73));
             //Console.WriteLine(RecursiveFactorial(15));
             //Console.WriteLine(IsPalindrome3("repaper"));
-            Console.WriteLine(PowerOf(2, -3));
+            //Console.WriteLine(PowerOf(2, -3));
+            Console.WriteLine(MemoizedFactorial(10));
             
         }
 
@@ -210,6 +212,28 @@ namespace algorithms
                 return 1;
 
             return n * RecursiveFactorial(n - 1);
+        }
+
+        private static long MemoizedFactorial(long n) 
+            => FactorialWithMemo(n, new Dictionary<long, long>());
+        
+
+        private static long FactorialWithMemo(long n, Dictionary<long, long> memo) {
+            if(memo.TryGetValue(n, out long value)) 
+            {
+                return value;
+            } else {
+                long result;
+                
+                if(n <= 1) {
+                    result = 1;
+                } else {
+                    result =  n * FactorialWithMemo(n - 1, memo);
+                }
+
+                memo.TryAdd(n, result);
+                return result;
+            }
         }
         
         private static bool IsPalindrome(String word) {
