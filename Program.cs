@@ -22,7 +22,7 @@ namespace algorithms
             //Console.WriteLine(IsPalindrome3("repaper"));
             //Console.WriteLine(PowerOf(2, -3));
             //Console.WriteLine(MemoizedFactorial(10));
-            Console.WriteLine(MemoizedFib(50));
+            Console.WriteLine(FibBottomUp(6));
             
         }
 
@@ -323,6 +323,21 @@ namespace algorithms
                 memo.TryAdd(nth, result);
                 return result;
             }
+        }
+
+        private static long FibBottomUp(int nth) {
+            if (nth == 0 || nth == 1) return nth;
+
+             long twoBehind = 0;
+             long oneBehind = 1;
+             long result = 0;
+             for(var i = 0; i <= nth -1; i++) {
+                result = twoBehind + oneBehind;
+                twoBehind = oneBehind;
+                oneBehind = result;
+             }
+
+             return result;
         }
     }
 }
