@@ -8,7 +8,7 @@ namespace algorithms
     {
         static void Main(string[] args)
         {
-            var items = new int[] { 5, 2, 4, 7, 1, 3, 2 };
+            //var items = new int[] { 5, 2, 4, 7, 1, 3, 2 };
             //InsertionSort2(items).ToList().ForEach(i => Console.WriteLine(i));
             //InsertionSort3(items).ToList().ForEach(i => Console.WriteLine(i));
             //SelectionSort(items).ToList().ForEach(i => Console.WriteLine(i));
@@ -22,7 +22,8 @@ namespace algorithms
             //Console.WriteLine(IsPalindrome3("repaper"));
             //Console.WriteLine(PowerOf(2, -3));
             //Console.WriteLine(MemoizedFactorial(10));
-            Console.WriteLine(FibBottomUp(6));
+            //Console.WriteLine(FibBottomUp(6));
+            Console.WriteLine(LeetCode242("ana", "naaa"));
             
         }
 
@@ -339,5 +340,41 @@ namespace algorithms
 
              return result;
         }
+
+
+        private static bool LeetCode242(string s1, string s2) {
+            //valid anagram
+            //build two hashmaps and compare letter occurrence count
+
+            var ocurrencess1 = new Dictionary<char, int>();
+            foreach (char s in s1)
+            {
+                if(ocurrencess1.ContainsKey(s)) {
+                    ocurrencess1[s] = ocurrencess1[s] + 1; 
+                } else {
+                    ocurrencess1.Add(s, 1);
+                }
+            }
+
+            var ocurrencess2 = new Dictionary<char, int>();
+            foreach (char s in s2)
+            {
+                if(ocurrencess2.ContainsKey(s)) {
+                    ocurrencess2[s] = ocurrencess2[s] + 1;
+                } else {
+                    ocurrencess2.Add(s, 1);
+                }
+            }
+
+            foreach(var letter in ocurrencess1.Keys) {
+                
+                if(!ocurrencess2.ContainsKey(letter) || ocurrencess2[letter] != ocurrencess1[letter]) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
     }
 }
