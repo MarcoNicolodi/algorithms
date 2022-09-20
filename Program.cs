@@ -346,6 +346,8 @@ namespace algorithms
             //valid anagram
             //build two hashmaps and compare letter occurrence count
 
+            if(s1.Length != s2.Length) return false;
+
             var ocurrencess1 = new Dictionary<char, int>();
             foreach (char s in s1)
             {
@@ -374,6 +376,46 @@ namespace algorithms
             }
 
             return true;
+        }
+
+        public int[] LeetCode1TwoSum(int[] nums, int target) {
+                var visited = new Dictionary<int,int>();
+                for (int i = 0; i <= nums.Length - 1; i++)
+                {
+                    
+                    var desired = target - nums[i];
+                    
+                    if(visited.TryGetValue(desired, out int match))
+                        return new int[2] {i, match};
+                    
+                    
+                    if(!visited.ContainsKey(nums[i]))
+                        visited.Add(nums[i], i);    
+                }
+            
+                throw new Exception();
+        }
+
+        private static int[][] TwoSumInputIsOrdered(int[] numbers, int target) 
+        {
+            int left = 0;
+            int right = numbers.Length - 1;
+            int[] result = new int[2];
+
+            while(left < right) {
+                if (numbers[left] + numbers[right] < target)
+                    left++;
+                else if (numbers[left] + numbers[right] > target)
+                    right--;
+                else if(numbers[left] + numbers[right] == target) {
+                    result[0] = left+1;
+                    result[1] = right+1;
+                    break;
+                }
+                    
+            }
+            
+        return result;
         }
 
     }
