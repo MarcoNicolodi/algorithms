@@ -379,24 +379,25 @@ namespace algorithms
         }
 
         public int[] LeetCode1TwoSum(int[] nums, int target) {
-                var visited = new Dictionary<int,int>();
-                for (int i = 0; i <= nums.Length - 1; i++)
-                {
-                    
-                    var desired = target - nums[i];
-                    
-                    if(visited.TryGetValue(desired, out int match))
-                        return new int[2] {i, match};
-                    
-                    
-                    if(!visited.ContainsKey(nums[i]))
-                        visited.Add(nums[i], i);    
-                }
+            var visited = new Dictionary<int,int>();
+            int[] result = new int[2];
             
-                throw new Exception();
+            for (int i = 0; i <= nums.Length - 1; i++)
+            {
+                var desired = target - nums[i];
+                
+                if(visited.TryGetValue(desired, out int match))
+                    return new int[2] {i, match};
+                
+                
+                if(!visited.ContainsKey(nums[i]))
+                    visited.Add(nums[i], i);    
+            }
+        
+            return result;
         }
 
-        private static int[][] TwoSumInputIsOrdered(int[] numbers, int target) 
+        private static int[] TwoSumInputIsOrdered(int[] numbers, int target) 
         {
             int left = 0;
             int right = numbers.Length - 1;
@@ -415,7 +416,7 @@ namespace algorithms
                     
             }
             
-        return result;
+            return result;
         }
 
     }
