@@ -23,7 +23,8 @@ namespace algorithms
             //Console.WriteLine(PowerOf(2, -3));
             //Console.WriteLine(MemoizedFactorial(10));
             //Console.WriteLine(FibBottomUp(6));
-            Console.WriteLine(LeetCode242("ana", "naaa"));
+            ThreeSum(new int[] {0,0,0});
+            
             
         }
 
@@ -379,6 +380,8 @@ namespace algorithms
         }
 
         public int[] LeetCode1TwoSum(int[] nums, int target) {
+            //https://www.youtube.com/watch?v=KLlXCFG5TnA
+            //visited hashmap solution O(n)
             var visited = new Dictionary<int,int>();
             int[] result = new int[2];
             
@@ -397,8 +400,10 @@ namespace algorithms
             return result;
         }
 
-        private static int[] TwoSumInputIsOrdered(int[] numbers, int target) 
+        private static int[] LeetCode167TwoSumInputIsOrdered(int[] numbers, int target) 
         {
+            //https://www.youtube.com/watch?v=cQ1Oz4ckceM
+            //two pointers solution O(n)
             int left = 0;
             int right = numbers.Length - 1;
             int[] result = new int[2];
@@ -416,6 +421,43 @@ namespace algorithms
                     
             }
             
+            return result;
+        }
+
+        private static IList<IList<int>> ThreeSum(int[] numbers)
+        {
+            //return the triplets of indexes of numbers that sum to zero
+            //https://www.youtube.com/watch?v=jzZsG8n2R9A
+            //time: sorting takes O(n logn), plus two loops: O(n logn) + O(n^2) = O(n^2)
+            Array.Sort(numbers);
+            IList<IList<int>> result = new List<IList<int>>();
+            for (int i = 0; i < numbers.Length -1; i++)
+            {
+                if(i > 0 && numbers[i] == numbers[i-1]) continue;
+
+                int left = i + 1;
+                int right = numbers.Length - 1;
+                
+                while(left < right)
+                {
+                    if(numbers[left] + numbers[right] + numbers[i] < 0)
+                    {       
+                        left++;
+                    } 
+                    else if (numbers[left] + numbers[right] + numbers[i] > 0)
+                    {
+                        right--;
+                    } 
+                    else
+                    {
+                        result.Add(new int[3]{numbers[i], numbers[left], numbers[right]});
+                        left++;
+                            while(left < right && numbers[left] == numbers[left - 1])
+                            left++; 
+                    }
+                }
+            }
+
             return result;
         }
 
