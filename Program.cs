@@ -23,7 +23,7 @@ namespace algorithms
             //Console.WriteLine(PowerOf(2, -3));
             //Console.WriteLine(MemoizedFactorial(10));
             //Console.WriteLine(FibBottomUp(6));
-            ThreeSum(new int[] {0,0,0});
+            LeetCode347TopKFrequentElements(new int[] {1}, 1);
             
             
         }
@@ -459,6 +459,53 @@ namespace algorithms
             }
 
             return result;
+        }
+
+        private static int[] LeetCode347TopKFrequentElements(int[] nums, int k)
+        {
+            //https://leetcode.com/problems/top-k-frequent-elements/
+            //https://www.youtube.com/watch?v=YPTqKIgVk-k
+
+            var frequencies = new Dictionary<int,int>();
+            for (int i = 0; i <= nums.Length - 1; i++)
+            {
+                if(frequencies.ContainsKey(nums[i]))
+                {
+                    frequencies[nums[i]]++;
+                } else 
+                {
+                    frequencies[nums[i]] = 1;
+                }
+            }
+
+            var buckets = new Queue<int>[nums.Count() + 1];
+
+            foreach (var frequency in frequencies)
+            {
+                var num = frequency.Key;
+                var count = frequency.Value;
+                
+                if(buckets[count] == null)
+                    buckets[count] = new Queue<int>(){};
+                        
+                buckets[count].Enqueue(num);
+            }
+
+            var result = new List<int>();
+
+            for (int i = buckets.Length - 1 ; i >= 0 && result.Count < k; i--)
+            {
+                if(buckets[i] != null)
+                {
+                    while(buckets[i].TryDequeue(out int num) && result.Count < k)
+                    {
+                        result.Add(num);
+                    }
+                }
+            }
+
+            return result.ToArray();
+
         }
 
     }
