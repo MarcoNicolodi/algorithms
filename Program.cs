@@ -24,7 +24,8 @@ namespace algorithms
             //Console.WriteLine(MemoizedFactorial(10));
             //Console.WriteLine(FibBottomUp(6));
 
-            Add2Numbers(new ListNode(9, new ListNode(9, new ListNode(9))),new ListNode(9, new ListNode(9)));
+            //Add2Numbers(new ListNode(2, new ListNode(4, new ListNode(3))),new ListNode(5, new ListNode(6)));
+            LeetCode152MaximumProductSubarray(new int[]{2,3,-2,4});
 
 
 
@@ -578,7 +579,10 @@ namespace algorithms
 
         public static ListNode Add2Numbers(ListNode l1, ListNode l2)
         {
+            //aka add two linked lists
             //https://leetcode.com/problems/add-two-numbers/
+            //https://www.youtube.com/watch?v=wgFPrzTjm7s&t=301s
+            
             var dummy = new ListNode();
             var result = dummy;
             var carry = 0m;
@@ -595,6 +599,44 @@ namespace algorithms
             }
 
             return dummy.next;
+        }
+
+        // public static void LeetCode143ReorderList(ListNode head)
+        // {
+        //     //https://leetcode.com/problems/reorder-list/
+
+        //     var nodesArr = new ListNode[]{};
+        //     var  i = 0;
+        //     var loopNode = head;
+            
+        //     //turn into array so it can be reordered;
+        //     while(loopNode.next != null)
+        //     {
+        //         nodesArr[i] = loopNode;
+        //         loopNode = head.next;
+        //     }
+
+
+
+        // }
+
+        public static int LeetCode152MaximumProductSubarray(int[] nums)
+        {
+            var result = nums.First();
+            var min = 1;
+            var max = 1;
+            foreach (var num in nums)
+            {
+                var tmpMin = min;
+                min = Math.Min(Math.Min(num, num * min), num * max);
+                max = Math.Max(Math.Max(num, num * tmpMin), num * max);
+
+                if(max > result)
+                    result = max;
+            
+            }
+
+            return result;
         }
 
     }
