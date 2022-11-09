@@ -25,7 +25,18 @@ namespace algorithms
             //Console.WriteLine(FibBottomUp(6));
 
             //Add2Numbers(new ListNode(2, new ListNode(4, new ListNode(3))),new ListNode(5, new ListNode(6)));
-            LeetCode152MaximumProductSubarray(new int[]{2,3,-2,4});
+            //LeetCode152MaximumProductSubarray(new int[]{2,3,-2,4});
+
+            var connections = new Dictionary<int,int[]>{
+                {0, new int[]{1,2}},
+                {1, new int[]{0,5}},
+                {2, new int[]{0}},
+                {3, new int[]{6}},
+                {4, new int[]{}},
+                {5, new int[]{1}},
+                {6, new int[]{3}}
+            };
+            var result = DailyCodingProblem1237(connections);
 
 
 
@@ -638,6 +649,41 @@ namespace algorithms
 
             return result;
         }
+
+        public static List<HashSet<int>> DailyCodingProblem1237(Dictionary<int, int[]> connections)
+        {
+            var groups = new List<HashSet<int>>{};
+
+            foreach (var person in connections.Keys)
+            {
+                var visited = new HashSet<int>();
+
+                if(visited.TryGetValue(person, out int _))
+                    continue;
+
+                _DailyCodingProblem1237(person, connections, visited);
+
+                if(visited.Count > 0)
+                    groups.Add(visited);
+            }
+
+            return groups;
+        }
+
+         public static void _DailyCodingProblem1237(int person, Dictionary<int, int[]> connections, HashSet<int> visited)
+         {
+            visited.Add(person);
+
+            foreach(var connection in connections[person])
+                {
+                    if(visited.TryGetValue(connection, out int _))
+                        continue;
+
+                    _DailyCodingProblem1237(connection, connections, visited);
+                    
+                    
+                }
+         }
 
     }
 }
