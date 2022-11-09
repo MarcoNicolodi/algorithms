@@ -26,8 +26,12 @@ namespace algorithms
 
             //Add2Numbers(new ListNode(2, new ListNode(4, new ListNode(3))),new ListNode(5, new ListNode(6)));
             LeetCode152MaximumProductSubarray(new int[]{2,3,-2,4});
+            
+            var binaryTreeList = new int?[]{3,9,20,null,null,15,7};
+            TreeNode root = new TreeNode((int)binaryTreeList.First());
 
 
+            //LeetCode104MaxDepthOfBinaryTreeBFS
 
         }
 
@@ -622,6 +626,8 @@ namespace algorithms
 
         public static int LeetCode152MaximumProductSubarray(int[] nums)
         {
+            //https://leetcode.com/problems/maximum-product-subarray/
+            //https://www.youtube.com/watch?v=lXVy6YWFcRM
             var result = nums.First();
             var min = 1;
             var max = 1;
@@ -637,6 +643,78 @@ namespace algorithms
             }
 
             return result;
+        }
+
+ 
+        public class TreeNode {
+            public int val;
+            public TreeNode left;
+            public TreeNode right;
+            public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+                this.val = val;
+                this.left = left;
+                this.right = right;
+            }
+        }
+
+        public int LeetCode104MaxDepthOfBinaryTreeDFSRecursive(TreeNode root) 
+        {
+            //https://leetcode.com/problems/maximum-depth-of-binary-tree/
+            //https://www.youtube.com/watch?v=hTM3phVI6YQ
+            if(root == null) return 0;
+
+            return 1 + Math.Max(LeetCode104MaxDepthOfBinaryTreeDFSRecursive(root.left), LeetCode104MaxDepthOfBinaryTreeDFSRecursive(root.right));
+        }
+
+        public int LeetCode104MaxDepthOfBinaryTreeBFS(TreeNode root) 
+        {
+            //https://leetcode.com/problems/maximum-depth-of-binary-tree/
+            //https://www.youtube.com/watch?v=hTM3phVI6YQ
+            
+            var q = new Queue<TreeNode>();
+            q.Enqueue(root);
+            var depth = 0;
+            while(q.Peek() != null)
+            {
+                var tmp = new List<TreeNode>();
+                while(q.TryDequeue(out TreeNode node))
+                {
+                    if(node.left != null)
+                        tmp.Add(node.left);
+
+                    if(node.right != null)
+                        tmp.Add(node.right);
+
+                }
+
+                tmp.ForEach(node => {q.Enqueue(node);});
+
+                depth++;
+            }
+
+            return depth;
+        }
+
+        public TreeNode BinaryTreeFromArray(int?[] binaryTreeList)
+        {
+            var depth = 0;
+            var dummy = root;
+            for (int i = 1; i <= binaryTreeList.Length - 1; i++)
+            {
+                if(binaryTreeList[i] is int val)
+                {
+                    if(2*i+1 <= binaryTreeList.Length - 1 && binaryTreeList[2 * i + 1] is int leftVal)
+                    {
+                        dummy.left = new TreeNode(leftVal);
+                    }
+                    if(2*i+2 <= binaryTreeList.Length - 1 && binaryTreeList[2 * i + 2] is int rightVal)
+                    {
+                        dummy.left = new TreeNode(rightVal);
+                    }
+
+                    tree = node;
+                }
+            }
         }
 
     }
