@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace algorithms
 {
@@ -27,9 +28,9 @@ namespace algorithms
             //Add2Numbers(new ListNode(2, new ListNode(4, new ListNode(3))),new ListNode(5, new ListNode(6)));
             //LeetCode152MaximumProductSubarray(new int[]{2,3,-2,4});
             
-            // var binaryTreeArray = new int?[]{3,9,20,null,null,15,7};
-            // var head = BinaryTreeFromArrayLevelOrder(binaryTreeArray);
-
+            var binaryTreeArray = new int?[]{1,2,3,null,4};
+            var head = BinaryTreeFromArrayLevelOrder(binaryTreeArray);
+            var str = LeetCode606ConstructStringFromBinaryTree(head);
 
             //var depth = LeetCode104MaxDepthOfBinaryTreeBFS(head);
             // var depth = LeetCode104MaxDepthOfBinaryTreeDFSIterative(head);
@@ -807,6 +808,36 @@ namespace algorithms
             }
 
             return depth;
+        }
+
+        public static string LeetCode606ConstructStringFromBinaryTree(TreeNode node)
+        {
+            //https://leetcode.com/problems/construct-string-from-binary-tree/
+            if(node == null) return String.Empty;
+
+            var s = new StringBuilder();
+            var rootStr = node.val.ToString();
+            s.Append(rootStr);
+            
+            var leftStr = LeetCode606ConstructStringFromBinaryTree(node.left);
+            var rightStr = LeetCode606ConstructStringFromBinaryTree(node.right);
+            
+            if(leftStr != String.Empty)
+            {
+                s.Append("(").Append(leftStr).Append(")");
+            } else {
+                if(rightStr != String.Empty)
+                {
+                    s.Append("()");
+                }
+            }
+            
+            if(rightStr != String.Empty)
+            {
+                s.Append("(").Append(rightStr).Append(")");
+            }
+
+            return s.ToString();
         }
 
     }
