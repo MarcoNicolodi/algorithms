@@ -26,17 +26,24 @@ namespace algorithms
 
             //Add2Numbers(new ListNode(2, new ListNode(4, new ListNode(3))),new ListNode(5, new ListNode(6)));
             //LeetCode152MaximumProductSubarray(new int[]{2,3,-2,4});
+            
+            // var binaryTreeArray = new int?[]{3,9,20,null,null,15,7};
+            // var head = BinaryTreeFromArrayLevelOrder(binaryTreeArray);
 
-            var connections = new Dictionary<int,int[]>{
-                {0, new int[]{1,2}},
-                {1, new int[]{0,5}},
-                {2, new int[]{0}},
-                {3, new int[]{6}},
-                {4, new int[]{}},
-                {5, new int[]{1}},
-                {6, new int[]{3}}
-            };
-            var result = DailyCodingProblem1237(connections);
+
+            //var depth = LeetCode104MaxDepthOfBinaryTreeBFS(head);
+            // var depth = LeetCode104MaxDepthOfBinaryTreeDFSIterative(head);
+
+            // var connections = new Dictionary<int,int[]>{
+            //     {0, new int[]{1,2}},
+            //     {1, new int[]{0,5}},
+            //     {2, new int[]{0}},
+            //     {3, new int[]{6}},
+            //     {4, new int[]{}},
+            //     {5, new int[]{1}},
+            //     {6, new int[]{3}}
+            // };
+            // var result = DailyCodingProblem1237(connections);
         }
 
         private static int[] InsertionSort(int[] items)
@@ -630,6 +637,8 @@ namespace algorithms
 
         public static int LeetCode152MaximumProductSubarray(int[] nums)
         {
+            //https://leetcode.com/problems/maximum-product-subarray/
+            //https://www.youtube.com/watch?v=lXVy6YWFcRM
             var result = nums.First();
             var min = 1;
             var max = 1;
@@ -682,6 +691,107 @@ namespace algorithms
                     
                 }
          }
+ 
+        public class TreeNode {
+            public int val;
+            public TreeNode left;
+            public TreeNode right;
+            public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+                this.val = val;
+                this.left = left;
+                this.right = right;
+            }
+        }
+
+        public static TreeNode BinaryTreeFromArrayLevelOrder(int?[] binaryTreeArray)
+        {
+            if(binaryTreeArray.Length == 0 || binaryTreeArray[0] == null)
+                return null;
+
+            var head = new TreeNode(binaryTreeArray[0].Value);
+            _BinaryTreeFromArrayLevelOrder(head, binaryTreeArray, 0);
+
+            return head;
+        }
+
+        public static void _BinaryTreeFromArrayLevelOrder(TreeNode node, int?[] binaryTreeArray, int i)
+        {
+            if(2*i+1 <= binaryTreeArray.Length - 1 && binaryTreeArray[2*i+1] is int leftVal)
+            {
+                node.left = new TreeNode(leftVal);
+                _BinaryTreeFromArrayLevelOrder(node.left, binaryTreeArray, 2*i+1);
+            }
+            if(2*i+2 <= binaryTreeArray.Length - 1 && binaryTreeArray[2*i+2] is int rightVal)
+            {
+                node.right = new TreeNode(rightVal);
+                _BinaryTreeFromArrayLevelOrder(node.right, binaryTreeArray, 2*i+2);
+            }
+        }
+
+        public static int LeetCode104MaxDepthOfBinaryTreeDFSRecursive(TreeNode root) 
+        {
+            //https://leetcode.com/problems/maximum-depth-of-binary-tree/
+            //https://www.youtube.com/watch?v=hTM3phVI6YQ
+            if(root == null) return 0;
+
+            return 1 + Math.Max(LeetCode104MaxDepthOfBinaryTreeDFSRecursive(root.left), LeetCode104MaxDepthOfBinaryTreeDFSRecursive(root.right));
+        }
+
+        public static int LeetCode104MaxDepthOfBinaryTreeDFSIterative(TreeNode root)
+        {
+            //https://leetcode.com/problems/maximum-depth-of-binary-tree/
+            //https://www.youtube.com/watch?v=hTM3phVI6YQ
+
+            if(root == null) return 0;
+
+            var stack = new Stack<KeyValuePair<TreeNode, int>>();
+            stack.Push(new KeyValuePair<TreeNode, int>(root, 1));
+            var result = 1;
+
+            while(stack.TryPop(out KeyValuePair<TreeNode, int> nodeDepth))
+            {
+                var node = nodeDepth.Key;
+                var depth = nodeDepth.Value;
+                result = Math.Max(depth, result);
+
+                if(node.left != null)
+                    stack.Push(new KeyValuePair<TreeNode, int>(node.left, depth + 1));
+                if(node.right != null)
+                    stack.Push(new KeyValuePair<TreeNode, int>(node.right, depth + 1));
+            }
+
+            return result;
+        }
+
+        public static int LeetCode104MaxDepthOfBinaryTreeBFS(TreeNode root) 
+        {
+            //https://leetcode.com/problems/maximum-depth-of-binary-tree/
+            //https://www.youtube.com/watch?v=hTM3phVI6YQ
+            if(root == null) return 0;
+
+            var q = new Queue<TreeNode>();
+            q.Enqueue(root);
+            var depth = 0;
+            while(q.TryPeek(out _))
+            {
+                var tmp = new List<TreeNode>();
+                while(q.TryDequeue(out TreeNode node))
+                {
+                    if(node.left != null)
+                        tmp.Add(node.left);
+
+                    if(node.right != null)
+                        tmp.Add(node.right);
+
+                }
+
+                tmp.ForEach(node => {q.Enqueue(node);});
+
+                depth++;
+            }
+
+            return depth;
+        }
 
     }
 }
