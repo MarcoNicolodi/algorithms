@@ -37,9 +37,6 @@ namespace algorithms
                 {6, new int[]{3}}
             };
             var result = DailyCodingProblem1237(connections);
-
-
-
         }
 
         private static int[] InsertionSort(int[] items)
@@ -653,34 +650,35 @@ namespace algorithms
         public static List<HashSet<int>> DailyCodingProblem1237(Dictionary<int, int[]> connections)
         {
             var groups = new List<HashSet<int>>{};
+            var visited = new HashSet<int>();
 
             foreach (var person in connections.Keys)
             {
-                var visited = new HashSet<int>();
-
                 if(visited.TryGetValue(person, out int _))
                     continue;
 
-                _DailyCodingProblem1237(person, connections, visited);
+                var group = new HashSet<int>();
 
-                if(visited.Count > 0)
-                    groups.Add(visited);
+                _DailyCodingProblem1237(person, connections, visited, group);
+
+                if(group.Count > 0)
+                    groups.Add(group);
             }
 
             return groups;
         }
 
-         public static void _DailyCodingProblem1237(int person, Dictionary<int, int[]> connections, HashSet<int> visited)
+         public static void _DailyCodingProblem1237(int person, Dictionary<int, int[]> connections, HashSet<int> visited, HashSet<int> group)
          {
             visited.Add(person);
+            group.Add(person);
 
             foreach(var connection in connections[person])
                 {
                     if(visited.TryGetValue(connection, out int _))
                         continue;
 
-                    _DailyCodingProblem1237(connection, connections, visited);
-                    
+                    _DailyCodingProblem1237(connection, connections, visited, group);
                     
                 }
          }
