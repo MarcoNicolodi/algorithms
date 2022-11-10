@@ -31,7 +31,8 @@ namespace algorithms
             var head = BinaryTreeFromArrayLevelOrder(binaryTreeArray);
 
 
-            var depth = LeetCode104MaxDepthOfBinaryTreeBFS(head);
+            //var depth = LeetCode104MaxDepthOfBinaryTreeBFS(head);
+            var depth = LeetCode104MaxDepthOfBinaryTreeDFSIterative(head);
 
         }
 
@@ -657,44 +658,6 @@ namespace algorithms
             }
         }
 
-        public int LeetCode104MaxDepthOfBinaryTreeDFSRecursive(TreeNode root) 
-        {
-            //https://leetcode.com/problems/maximum-depth-of-binary-tree/
-            //https://www.youtube.com/watch?v=hTM3phVI6YQ
-            if(root == null) return 0;
-
-            return 1 + Math.Max(LeetCode104MaxDepthOfBinaryTreeDFSRecursive(root.left), LeetCode104MaxDepthOfBinaryTreeDFSRecursive(root.right));
-        }
-
-        public static int LeetCode104MaxDepthOfBinaryTreeBFS(TreeNode root) 
-        {
-            //https://leetcode.com/problems/maximum-depth-of-binary-tree/
-            //https://www.youtube.com/watch?v=hTM3phVI6YQ
-            
-            var q = new Queue<TreeNode>();
-            q.Enqueue(root);
-            var depth = 0;
-            while(q.TryPeek(out _))
-            {
-                var tmp = new List<TreeNode>();
-                while(q.TryDequeue(out TreeNode node))
-                {
-                    if(node.left != null)
-                        tmp.Add(node.left);
-
-                    if(node.right != null)
-                        tmp.Add(node.right);
-
-                }
-
-                tmp.ForEach(node => {q.Enqueue(node);});
-
-                depth++;
-            }
-
-            return depth;
-        }
-
         public static TreeNode BinaryTreeFromArrayLevelOrder(int?[] binaryTreeArray)
         {
             if(binaryTreeArray.Length == 0 || binaryTreeArray[0] == null)
@@ -717,7 +680,72 @@ namespace algorithms
             {
                 node.right = new TreeNode(rightVal);
                 _BinaryTreeFromArrayLevelOrder(node.right, binaryTreeArray, 2*i+2);
-            }    
+            }
+        }
+
+        public static int LeetCode104MaxDepthOfBinaryTreeDFSRecursive(TreeNode root) 
+        {
+            //https://leetcode.com/problems/maximum-depth-of-binary-tree/
+            //https://www.youtube.com/watch?v=hTM3phVI6YQ
+            if(root == null) return 0;
+
+            return 1 + Math.Max(LeetCode104MaxDepthOfBinaryTreeDFSRecursive(root.left), LeetCode104MaxDepthOfBinaryTreeDFSRecursive(root.right));
+        }
+
+        public static int LeetCode104MaxDepthOfBinaryTreeDFSIterative(TreeNode root)
+        {
+            //https://leetcode.com/problems/maximum-depth-of-binary-tree/
+            //https://www.youtube.com/watch?v=hTM3phVI6YQ
+
+            if(root == null) return 0;
+
+            var stack = new Stack<KeyValuePair<TreeNode, int>>();
+            stack.Push(new KeyValuePair<TreeNode, int>(root, 1));
+            var result = 1;
+
+            while(stack.TryPop(out KeyValuePair<TreeNode, int> nodeDepth))
+            {
+                var node = nodeDepth.Key;
+                var depth = nodeDepth.Value;
+                result = Math.Max(depth, result);
+
+                if(node.left != null)
+                    stack.Push(new KeyValuePair<TreeNode, int>(node.left, depth + 1));
+                if(node.right != null)
+                    stack.Push(new KeyValuePair<TreeNode, int>(node.right, depth + 1));
+            }
+
+            return result;
+        }
+
+        public static int LeetCode104MaxDepthOfBinaryTreeBFS(TreeNode root) 
+        {
+            //https://leetcode.com/problems/maximum-depth-of-binary-tree/
+            //https://www.youtube.com/watch?v=hTM3phVI6YQ
+            if(root == null) return 0;
+
+            var q = new Queue<TreeNode>();
+            q.Enqueue(root);
+            var depth = 0;
+            while(q.TryPeek(out _))
+            {
+                var tmp = new List<TreeNode>();
+                while(q.TryDequeue(out TreeNode node))
+                {
+                    if(node.left != null)
+                        tmp.Add(node.left);
+
+                    if(node.right != null)
+                        tmp.Add(node.right);
+
+                }
+
+                tmp.ForEach(node => {q.Enqueue(node);});
+
+                depth++;
+            }
+
+            return depth;
         }
 
     }
