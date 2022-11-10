@@ -25,10 +25,10 @@ namespace algorithms
             //Console.WriteLine(FibBottomUp(6));
 
             //Add2Numbers(new ListNode(2, new ListNode(4, new ListNode(3))),new ListNode(5, new ListNode(6)));
-            LeetCode152MaximumProductSubarray(new int[]{2,3,-2,4});
+            //LeetCode152MaximumProductSubarray(new int[]{2,3,-2,4});
             
-            var binaryTreeList = new int?[]{3,9,20,null,null,15,7};
-            TreeNode root = new TreeNode((int)binaryTreeList.First());
+            var binaryTreeArray = new int?[]{3,9,20,null,null,15,7};
+            var head = BinaryTreeFromArrayLevelOrder(binaryTreeArray);
 
 
             //LeetCode104MaxDepthOfBinaryTreeBFS
@@ -695,26 +695,29 @@ namespace algorithms
             return depth;
         }
 
-        public TreeNode BinaryTreeFromArray(int?[] binaryTreeList)
+        public static TreeNode BinaryTreeFromArrayLevelOrder(int?[] binaryTreeArray)
         {
-            var depth = 0;
-            var dummy = root;
-            for (int i = 1; i <= binaryTreeList.Length - 1; i++)
-            {
-                if(binaryTreeList[i] is int val)
-                {
-                    if(2*i+1 <= binaryTreeList.Length - 1 && binaryTreeList[2 * i + 1] is int leftVal)
-                    {
-                        dummy.left = new TreeNode(leftVal);
-                    }
-                    if(2*i+2 <= binaryTreeList.Length - 1 && binaryTreeList[2 * i + 2] is int rightVal)
-                    {
-                        dummy.left = new TreeNode(rightVal);
-                    }
+            if(binaryTreeArray.Length == 0 || binaryTreeArray[0] == null)
+                return null;
 
-                    tree = node;
-                }
+            var head = new TreeNode(binaryTreeArray[0].Value);
+            _BinaryTreeFromArrayLevelOrder(head, binaryTreeArray, 0);
+
+            return head;
+        }
+
+        public static void _BinaryTreeFromArrayLevelOrder(TreeNode node, int?[] binaryTreeArray, int i)
+        {
+            if(2*i+1 <= binaryTreeArray.Length - 1 && binaryTreeArray[2*i+1] is int leftVal)
+            {
+                node.left = new TreeNode(leftVal);
+                _BinaryTreeFromArrayLevelOrder(node.left, binaryTreeArray, 2*i+1);
             }
+            if(2*i+2 <= binaryTreeArray.Length - 1 && binaryTreeArray[2*i+2] is int rightVal)
+            {
+                node.right = new TreeNode(rightVal);
+                _BinaryTreeFromArrayLevelOrder(node.right, binaryTreeArray, 2*i+2);
+            }    
         }
 
     }
