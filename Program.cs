@@ -31,7 +31,7 @@ namespace algorithms
             var head = BinaryTreeFromArrayLevelOrder(binaryTreeArray);
 
 
-            //LeetCode104MaxDepthOfBinaryTreeBFS
+            var depth = LeetCode104MaxDepthOfBinaryTreeBFS(head);
 
         }
 
@@ -666,7 +666,7 @@ namespace algorithms
             return 1 + Math.Max(LeetCode104MaxDepthOfBinaryTreeDFSRecursive(root.left), LeetCode104MaxDepthOfBinaryTreeDFSRecursive(root.right));
         }
 
-        public int LeetCode104MaxDepthOfBinaryTreeBFS(TreeNode root) 
+        public static int LeetCode104MaxDepthOfBinaryTreeBFS(TreeNode root) 
         {
             //https://leetcode.com/problems/maximum-depth-of-binary-tree/
             //https://www.youtube.com/watch?v=hTM3phVI6YQ
@@ -674,7 +674,7 @@ namespace algorithms
             var q = new Queue<TreeNode>();
             q.Enqueue(root);
             var depth = 0;
-            while(q.Peek() != null)
+            while(q.TryPeek(out _))
             {
                 var tmp = new List<TreeNode>();
                 while(q.TryDequeue(out TreeNode node))
