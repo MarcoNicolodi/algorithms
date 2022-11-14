@@ -47,7 +47,7 @@ namespace algorithms
             // var result = DailyCodingProblem1237(connections);
 
             var list = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
-            var inverted = LeetCode206ReverseLinkedList(list);
+            var inverted = LeetCode206ReverseLinkedListIteractive(list);
         }
 
         private static int[] InsertionSort(int[] items)
@@ -843,7 +843,7 @@ namespace algorithms
             return s.ToString();
         }
 
-        public static ListNode LeetCode206ReverseLinkedList(ListNode head)
+        public static ListNode LeetCode206ReverseLinkedListRecursive(ListNode head)
         {
             if(head == null) return null;
 
@@ -851,10 +851,10 @@ namespace algorithms
 
             var next = head.next;
             head.next = null;
-            return LeetCode206ReverseLinkedList(head, next);
+            return LeetCode206ReverseLinkedListRecursive(head, next);
         }
 
-        public static ListNode LeetCode206ReverseLinkedList(ListNode inverted, ListNode remaining)
+        public static ListNode LeetCode206ReverseLinkedListRecursive(ListNode inverted, ListNode remaining)
         {
             var tmp = remaining.next;
             remaining.next = inverted;
@@ -862,8 +862,24 @@ namespace algorithms
             {
                 return remaining;
             } else {
-                return LeetCode206ReverseLinkedList(remaining, tmp);
+                return LeetCode206ReverseLinkedListRecursive(remaining, tmp);
             }         
         }
+
+        public static ListNode LeetCode206ReverseLinkedListIteractive(ListNode head)
+        {
+            ListNode previous = null;
+            ListNode current = head;
+            while(current != null)
+            {
+                var next = current.next;
+                current.next = previous;
+                previous = current;
+                current = next;
+            }
+
+            return previous;
+        }
+
     }
 }
