@@ -28,9 +28,9 @@ namespace algorithms
             //Add2Numbers(new ListNode(2, new ListNode(4, new ListNode(3))),new ListNode(5, new ListNode(6)));
             //LeetCode152MaximumProductSubarray(new int[]{2,3,-2,4});
             
-            var binaryTreeArray = new int?[]{1,2,3,null,4};
-            var head = BinaryTreeFromArrayLevelOrder(binaryTreeArray);
-            var str = LeetCode606ConstructStringFromBinaryTree(head);
+            // var binaryTreeArray = new int?[]{1,2,3,null,4};
+            // var head = BinaryTreeFromArrayLevelOrder(binaryTreeArray);
+            // var str = LeetCode606ConstructStringFromBinaryTree(head);
 
             //var depth = LeetCode104MaxDepthOfBinaryTreeBFS(head);
             // var depth = LeetCode104MaxDepthOfBinaryTreeDFSIterative(head);
@@ -45,6 +45,9 @@ namespace algorithms
             //     {6, new int[]{3}}
             // };
             // var result = DailyCodingProblem1237(connections);
+
+            var list = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
+            var inverted = LeetCode206ReverseLinkedList(list);
         }
 
         private static int[] InsertionSort(int[] items)
@@ -840,5 +843,27 @@ namespace algorithms
             return s.ToString();
         }
 
+        public static ListNode LeetCode206ReverseLinkedList(ListNode head)
+        {
+            if(head == null) return null;
+
+            if(head.next == null) return head;
+
+            var next = head.next;
+            head.next = null;
+            return LeetCode206ReverseLinkedList(head, next);
+        }
+
+        public static ListNode LeetCode206ReverseLinkedList(ListNode inverted, ListNode remaining)
+        {
+            var tmp = remaining.next;
+            remaining.next = inverted;
+            if(tmp == null)
+            {
+                return remaining;
+            } else {
+                return LeetCode206ReverseLinkedList(remaining, tmp);
+            }         
+        }
     }
 }
