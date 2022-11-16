@@ -881,5 +881,23 @@ namespace algorithms
             return previous;
         }
 
+        public static bool LeetCode141LinkedListCycle(ListNode head)
+        {
+            var visited = new HashSet<ListNode>();
+            var current = head;
+            while(current != null)
+            {
+                if(visited.TryGetValue(current, out ListNode _))
+                {
+                    return true;
+                }
+
+                visited.Add(current);
+                current = current.next;
+            }
+
+            return false;
+        }
+
     }
 }
