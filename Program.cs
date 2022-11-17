@@ -899,22 +899,38 @@ namespace algorithms
             return false;
         }
 
-    public ListNode LeetCode142LinkedListCycle(ListNode head) {
-        var visited = new HashSet<ListNode>();
-        var current = head;
-        while(current != null)
+        public static bool LeetCode141LinkedListCycleTortoiseAndHareAlgo(ListNode head)
         {
-            if(visited.TryGetValue(current, out ListNode cycle))
+            var slow = head;
+            var fast = head;
+            while(fast != null && fast.next != null) 
             {
-                return cycle;
+                slow = slow.next;
+                fast = fast.next.next;
+
+                if(slow == fast)
+                    return true;
             }
 
-            visited.Add(current);
-            current = current.next;
+            return false;
         }
 
-        return null;
-    }
+        public ListNode LeetCode142LinkedListCycle(ListNode head) {
+            var visited = new HashSet<ListNode>();
+            var current = head;
+            while(current != null)
+            {
+                if(visited.TryGetValue(current, out ListNode cycle))
+                {
+                    return cycle;
+                }
+
+                visited.Add(current);
+                current = current.next;
+            }
+
+            return null;
+        }
 
     }
 }
