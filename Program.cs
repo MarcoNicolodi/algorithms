@@ -46,8 +46,9 @@ namespace algorithms
             // };
             // var result = DailyCodingProblem1237(connections);
 
-            var list = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
-            var inverted = LeetCode206ReverseLinkedListIteractive(list);
+            //var list = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
+            //var inverted = LeetCode206ReverseLinkedListIteractive(list);
+            var duplicate = LeetCode287FindDuplicateNumber(new int[]{2,5,9,6,9,3,8,9,7,1});
         }
 
         private static int[] InsertionSort(int[] items)
@@ -930,6 +931,34 @@ namespace algorithms
             }
 
             return null;
+        }
+
+        public static int LeetCode287FindDuplicateNumber(int[] nums) {
+            //https://leetcode.com/problems/find-the-duplicate-number/
+            //https://www.youtube.com/watch?v=wjYnzkAhcNk
+            //Floyd's Cycle Detection (Tortoise & Hare)
+            var slow = nums[nums[0]];
+            var fast = nums[nums[nums[0]]];
+            
+            while(true)
+            {
+                if(slow == fast)
+                    break;
+
+                slow = nums[slow];
+                fast = nums[nums[fast]];
+            }
+
+            slow = nums[0];
+
+            while(slow != fast)
+            {
+                slow = nums[slow];
+                fast = nums[fast];
+            }
+
+            return slow;
+
         }
 
     }
