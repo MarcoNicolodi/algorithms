@@ -48,7 +48,8 @@ namespace algorithms
 
             //var list = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
             //var inverted = LeetCode206ReverseLinkedListIteractive(list);
-            var duplicate = LeetCode287FindDuplicateNumber(new int[]{2,5,9,6,9,3,8,9,7,1});
+            //var duplicate = LeetCode287FindDuplicateNumber(new int[]{2,5,9,6,9,3,8,9,7,1});
+            var results = new bool[]{LeetCode9PalindromeNumber(13421),LeetCode9PalindromeNumber(13431)};
         }
 
         private static int[] InsertionSort(int[] items)
@@ -959,6 +960,25 @@ namespace algorithms
 
             return slow;
 
+        }
+
+        public static bool LeetCode9PalindromeNumber(int num)
+        {
+            //https://leetcode.com/problems/palindrome-number/
+            //without converting the integer into a string
+            if(num < 0 || (num % 10 == 0 && num != 0)) return false;
+
+            int revertedSecondHalf = 0;
+
+            while(num > revertedSecondHalf)
+            {
+                revertedSecondHalf = revertedSecondHalf * 10 + num  % 10;
+                num /= 10;
+            }
+
+            return num == revertedSecondHalf || num == revertedSecondHalf/10;
+
+            
         }
 
     }
